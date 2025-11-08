@@ -25,8 +25,7 @@
             SHEET_NAME: 'sunly_lowes_list',
             API_KEY: 'AIzaSyBHcVkUgYLoJnNKpTecRUpAyMHU-T8HqFY',
             REFRESH_MINUTES: 3,
-            DEALER_FILTER: 'Sunly 3PL',
-            RESERVE_URL: 'https://forms.gle/9uWPZk4tS9Z9XaVe6'
+            DEALER_FILTER: 'Sunly 3PL'
         };
 
         let map = null;
@@ -189,8 +188,8 @@
                         const status = row[1]?.toString().trim();
                         const dealer = row[2]?.toString().trim();
                         
-                        // Filter for Sunly 3PL stores only
-                        if (dealer === CONFIG.DEALER_FILTER) {
+                        // Filter for Sunly 3PL stores (including shared dealers)
+                        if (dealer && dealer.includes(CONFIG.DEALER_FILTER)) {
                             const statusLower = status.toLowerCase();
                             
                             // Only include Reserved and Staffed
@@ -335,15 +334,6 @@
                                     <option key={state} value={state}>{state}</option>
                                 ))}
                             </select>
-                            <a 
-                                href={CONFIG.RESERVE_URL}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="px-4 py-2 rounded-lg font-medium text-white"
-                                style={{backgroundColor: '#2C5134'}}
-                            >
-                                Reserve Store
-                            </a>
                             <span className="px-4 py-2 bg-gray-100 rounded-lg text-gray-700 font-medium">
                                 Showing {filteredStores.length} of {stores.length}
                             </span>
